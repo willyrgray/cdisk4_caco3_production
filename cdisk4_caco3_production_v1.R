@@ -176,8 +176,13 @@ plot(stations, tot, xlab='station', ylab=expression(CaCO[3]~(mg/m^2)), col=adjus
 
 for(i in 1:length(stations)){
 	for(j in 1:length(groups)){
-		points(stations[i]+0.375-0.15*j, stdstk[i,j], col=adjustcolor(gr_cols[j],alpha=0.8), pch=gr_pch[j],cex=1.1)	
+		lines(c(stations[i]+0.375-0.15*j, stations[i]+0.375-0.15*j), c(stdstk[i,j+1]-stdstk[i,j+5], stdstk[i,j+1]+stdstk[i,j+5]), col=adjustcolor(gr_cols[j],alpha=0.8), pch=gr_pch[j])
+		points(stations[i]+0.375-0.15*j, stdstk[i,j+1], col=adjustcolor(gr_cols[j],alpha=0.8), pch=gr_pch[j],cex=1.1)	
 	}
+}
+
+for(i in 1:length(stations)){
+		lines(c(stations[i], stations[i]), c(tot[i]-tot_sigma[i], tot[i]+tot_sigma[i]), col=adjustcolor('grey37',alpha=0.9)) 
 }
 
 points(stations, tot, col=adjustcolor('grey37',alpha=0.9), pch=15,cex=1.3)
