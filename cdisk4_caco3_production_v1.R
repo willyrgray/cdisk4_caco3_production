@@ -38,16 +38,16 @@ tot_sigma<- calcite_sigma + aragonite_sigma
 
 #turnover time
 #set min and max turnover time in days
-turnovr<-data.frame(group=c('ptero','hetero','foram','coco'),min=c(5,5,10,1/1.5), max=c(16,16,30,1/0.1))
+turnovr<-data.frame(group=c('ptero','hetero','foram','coco'),min=c(5,5,10,1/1.5), max=c(16,16,30,1/0.1)) #ranges come from literature
 
-#seasonal bias satellite PIC
+#seasonal bias - satellite PIC used for coccos/forams
 satellite_pic <- read.csv('seawifs_pic_monthly_clim.csv') #seawifs pic monthly clim for each station
 satellite_pic2017<- read.csv('seawifs_pic_2017.csv') #seawifs pic aug 2017 for each station
 satellite_pic_annual_mean<- as.numeric(colMeans(satellite_pic, na.rm=TRUE))
 satellite_pic_aug2017<- as.numeric(satellite_pic2017[8,])
 seasonal_bias<- satellite_pic_aug2017/satellite_pic_annual_mean #ratio of pic Aug 2017 compared to annual climatology
 
-#seasonal bias - zooplankton timeseries
+#seasonal bias - zooplankton timeseries used for pteros/heteropods
 seasonal_bias_zoo_HOTS_PAPA<- c(1.2,2) #ratio of aug/annal mean climatological zooplankton abundance from HOTS/PAPA
 lat_HOTS_PAPA<-c(22.750, 50.100)
 seasonal_bias_zoo<- predict(lm(seasonal_bias_zoo_HOTS_PAPA~lat_HOTS_PAPA), data.frame(lat_HOTS_PAPA=lat)) #extrapolate based on lat
